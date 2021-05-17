@@ -39,7 +39,7 @@ const requireSignin = expressJwt({
     userProperty: 'auth'
 })
 
-const hasAtuhorization = (req, res, next) => {
+const hasAuthorization = (req, res, next) => {
     const authorized = req.profile && req.auth && req.profile._id == req.auth._id
     if (!(authorized)) {
         return res.status('403').json({
@@ -53,5 +53,5 @@ export default {
     signin, 
     signout, 
     requireSignin, 
-    hasAtuhorization 
+    hasAuthorization 
 }
