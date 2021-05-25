@@ -1,5 +1,3 @@
-import { json } from "body-parser"
-
 const signin = async (user) => {
     try {
         let response = await fetch('/auth/signin/', {

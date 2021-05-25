@@ -1,6 +1,7 @@
 /node_modules/
 /dist/
 /data/
-/.vscode/
+.vscode/
+
 npm-debug.log
-test.txt
+index.html
