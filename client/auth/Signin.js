@@ -1,6 +1,17 @@
-import { signin } from "./api-auth"
+import React, {useState} from 'react'
+import Card from '@material-ui/core/Card'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import Typography from '@material-ui/core/Typography'
+import Icon from '@material-ui/core/Icon'
+import { makeStyles } from '@material-ui/core/styles'
+import auth from './../auth/auth-helper'
+import {Redirect} from 'react-router-dom'
+import {signin} from './api-auth.js'
 
-export default function Signin() {
+export default function Signin(props) {
     const [values, setValues] = useState({
         email: '',
         password: '',
@@ -25,6 +36,10 @@ export default function Signin() {
         })
     }
 
+    const handleChange = name => event => {
+        setValues({ ...values, [name]: event.target.value })
+    }
+
     const {from} = props.location.state || {
         from: {
             pathname: '/'
@@ -34,4 +49,25 @@ export default function Signin() {
     if (redirectToReferrer) {
         return (<Redirect to={from}/>)
     }
+
+    return (
+        <Card className={classes.card}>
+            <CardContent>
+            <Typography variant="h6" className={classes.title}>
+                Sign In
+            </Typography>
+            <TextField id="email" type="email" label="Email" className={classes.textField} value={values.email} onChange={handleChange('email')} margin="normal"/><br/>
+            <TextField id="password" type="password" label="Password" className={classes.textField} value={values.password} onChange={handleChange('password')} margin="normal"/>
+            <br/> {
+                values.error && (<Typography component="p" color="error">
+                <Icon color="error" className={classes.error}>error</Icon>
+                {values.error}
+                </Typography>)
+            }
+            </CardContent>
+            <CardActions>
+            <Button color="primary" variant="contained" onClick={clickSubmit} className={classes.submit}>Submit</Button>
+            </CardActions>
+        </Card>
+    )
 }
