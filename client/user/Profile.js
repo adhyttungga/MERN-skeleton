@@ -17,16 +17,29 @@ import auth from './../auth/auth-helper'
 import {read} from './api-user.js'
 import {Redirect, Link} from 'react-router-dom'
 
+const useStyles = makeStyles(theme => ({
+    root: theme.mixins.gutters({
+        maxWidth: 600,
+        margin: 'auto',
+        padding: theme.spacing(3),
+        marginTop: theme.spacing(5)
+    }),
+    title: {
+        marginTop: theme.spacing(3),
+        color: theme.palette.protectedTitle
+    }
+}))
+
 export default function Profile({ match }) {
-
-    const [user, setUsers] = useState({})
+    const classes = useStyles()
+    const [user, setUser] = useState({})
     const [redirectToSignin, setRedirectToSignin] = useState(false)
-
+    const jwt = auth.isAuthenticated()
+    
     useEffect (() => {
         const abortController = new AbortController()
         const signal = abortController.signal
-        const jwt = auth.isAuthenticated()
-
+        
         read({
             userId: match.params.userId
         }, {t: jwt.token}, signal).then((data) => {
@@ -43,7 +56,7 @@ export default function Profile({ match }) {
     }, [match.params.userId])
 
     if (redirectToSignin) {
-        return <Redirec to='/signin'/>
+        return <Redirect to='/signin'/>
     }
     return (
         <Paper className={classes.root} elevation={4}>

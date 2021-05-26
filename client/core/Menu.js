@@ -18,7 +18,7 @@ const isActive = (history, path) => {
 const Menu = withRouter(({history}) => (
     <AppBar position="static">
         <Toolbar>
-            <Typography variant="h6" color="inherity">
+            <Typography variant="h6" color="inherit">
                 MERN Skeleton
             </Typography>
             <Link to="/">
@@ -44,7 +44,7 @@ const Menu = withRouter(({history}) => (
             {
                 auth.isAuthenticated() && (
                     <span>
-                        <Link to={"/user/" + ath.isAuthenticated().user._id}>
+                        <Link to={"/user/" + auth.isAuthenticated().user._id}>
                             <Button style={isActive(history, "/user/" + auth.isAuthenticated().user._id)}>
                                 My Profile
                             </Button>

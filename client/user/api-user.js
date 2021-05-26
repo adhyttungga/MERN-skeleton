@@ -1,6 +1,3 @@
-const { json } = require("body-parser")
-const { application } = require("express")
-
 const create = async (user) => {
     try {
         let response = await fetch('/api/users/', {
@@ -66,7 +63,7 @@ const update = async (params, credentials, user) => {
 const remove = async (params, credentials, user) => {
     try {
         let response = await fetch('/api/users/' + params.userId, {
-            merhod: 'DELETE',
+            method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
